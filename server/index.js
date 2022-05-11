@@ -1,31 +1,29 @@
 'use strict';
 
 const Glue = require('@hapi/glue');
-const Exiting = require('exiting');
 const Manifest = require('./manifest');
-const Schmervice = require('@hapipal/schmervice');
 
-exports.deployment = async ({ start } = {}) => {
+exports.deployment = async (start) => {
 
-    const manifest = Manifest.get('/', process.env);
+    const manifest = Manifest.get('/');
     const server = await Glue.compose(manifest, { relativeTo: __dirname });
 
-    if (start) {
-        await Exiting.createManager(server).start();
-        server.log(['start'], `Server started at ${server.info.uri}`);
+    await server.initialize();
+
+    if (!start) {
         return server;
     }
 
-     server.register(Schmervice);
+    await server.start();
 
-    await server.initialize();
+    console.log(`Server started at ${server.info.uri}`);
 
     return server;
 };
 
-if (require.main === module) {
+if (!module.parent) {
 
-    exports.deployment({ start: true });
+    exports.deployment(true);
 
     process.on('unhandledRejection', (err) => {
 

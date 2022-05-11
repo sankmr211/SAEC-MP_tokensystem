@@ -1,46 +1,62 @@
 {
-  "name": "santhosh",
+  "name": "token system",
   "version": "1.0.0",
-  "description": "",
-  "author": "",
-  "license": "ISC",
-  "main": "lib/index.js",
-  "directories": {
-    "lib": "lib",
-    "test": "test"
-  },
+  "main": "server/index.js",
   "scripts": {
     "start": "node server",
-    "test": "lab -a @hapi/code -L",
-    "lint": "eslint ."
+    "test": "lab -a @hapi/code -p",
+    "lint": "eslint .",
+    "lintfix": "eslint . --fix",
+    "build": "tar -zvcf node_modules.tar.gz node_modules/ && git add node_modules.tar.gz",
+    "extract": "tar -xzcf node_modules.tar.gz"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm run build",
+      "pre-push": "npm run lint"
+    }
   },
   "dependencies": {
     "@hapi/boom": "9.x.x",
-    "@hapi/inert": "^6.0.5",
-    "@hapi/joi": "^17.1.1",
-    "@hapi/vision": "^6.1.0",
-    "@hapipal/haute-couture": "4.x.x",
-    "@hapipal/schmervice": "^2.0.0",
-    "@hapipal/schwifty": "^6.1.0",
-    "hapi-swagger": "^14.2.5",
-    "joi": "^17.6.0",
-    "mongoose": "^6.2.6",
-    "schmervice": "^1.6.0"
+    "@hapi/joi": "17.x.x",
+    "axios": "^0.21.1",
+    "csvtojson": "^2.0.10",
+    "ejs": "^3.1.7",
+    "ejs-lint": "^1.2.1",
+    "hapi-auth-jwt2": "^10.1.0",
+    "hapi-plugin-header": "^1.x.x",
+    "haute-couture": "3.x.x",
+    "husky": "^4.2.5",
+    "jwks-rsa": "^1.8.1",
+    "jwt-decode": "^2.2.0",
+    "mongoose": "^5.12.4",
+    "nodemailer": "^6.7.3",
+    "nodemailer-smtp-transport": "^2.7.4",
+    "objection": "^2.2.0",
+    "objection-db-errors": "^1.1.2",
+    "qs": "^6.10.3",
+    "redis": "^3.0.2",
+    "schmervice": "^1.5.0",
+    "schwifty": "^5.2.1",
+    "uuid": "^8.2.0"
   },
   "devDependencies": {
     "@hapi/code": "8.x.x",
     "@hapi/eslint-config-hapi": "13.x.x",
     "@hapi/eslint-plugin-hapi": "4.x.x",
-    "@hapi/glue": "8.x.x",
-    "@hapi/hapi": "20.x.x",
-    "@hapi/lab": "24.x.x",
-    "@hapipal/confidence": "6.x.x",
-    "@hapipal/hpal": "3.x.x",
-    "@hapipal/hpal-debug": "2.x.x",
-    "@hapipal/toys": "3.x.x",
-    "babel-eslint": "10.x.x",
+    "@hapi/glue": "^7.0.0",
+    "@hapi/hapi": "^19.1.1",
+    "@hapi/inert": "6.x.x",
+    "@hapi/lab": "22.x.x",
+    "@hapi/vision": "6.x.x",
+    "confidence": "4.x.x",
     "dotenv": "8.x.x",
     "eslint": "7.x.x",
-    "exiting": "6.x.x"
+    "faker": "",
+    "hapi-swagger": "13.x.x",
+    "hpal": "2.x.x",
+    "hpal-debug": "^1.4.0",
+    "toys": "2.x.x",
+    "xss": "^1.0.7"
   }
 }

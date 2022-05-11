@@ -1,28 +1,32 @@
 'use strict';
 
 const Dotenv = require('dotenv');
-const Confidence = require('@hapipal/confidence');
-const Toys = require('@hapipal/toys');
+const Confidence = require('confidence');
+const Toys = require('toys');
 const Inert = require('@hapi/inert');
 const Vision = require('@hapi/vision');
 const HapiSwagger = require('hapi-swagger');
 const Package = require('../package.json');
+
+
 // Pull .env into process.env
 Dotenv.config({ path: `${__dirname}/.env` });
-const mongoURL = `mongodb://${process.env.MONGO_DB_HOST}/`;  //db url added
-// Glue manifest as a confidence store
+const mongoURL = `mongodb://${process.env.MONGO_DB_HOST}/`;
 module.exports = new Confidence.Store({
     server: {
         host: 'localhost',
         port: {
-            $param: 'PORT',
+            $env: 'PORT',
             $coerce: 'number',
-            $default: process.env.PORT
+            $default: 3000
+        },
+        routes: {
+            security: true
         },
         debug: {
-            $filter: 'NODE_ENV',
+            $filter: { $env: 'NODE_ENV' },
             $default: {
-                log: ['error', 'start'],
+                log: ['error'],
                 request: ['error']
             },
             production: {
@@ -31,15 +35,14 @@ module.exports = new Confidence.Store({
         }
     },
     register: {
-        plugins: [
-            {
+        plugins: [{
                 plugin: '../lib', // Main plugin
-                options: { mongoURI: mongoURL}  //db connection
+                options: { mongoURI: mongoURL }
             },
             {
                 plugin: {
-                    $filter: 'NODE_ENV',
-                    $default: '@hapipal/hpal-debug',
+                    $filter: { $env: 'NODE_ENV' },
+                    $default: 'hpal-debug',
                     production: Toys.noop
                 }
             },
@@ -59,7 +62,8 @@ module.exports = new Confidence.Store({
                         version: Package.version
                     }
                 }
-            }
+            },
+           
         ]
     }
 });
