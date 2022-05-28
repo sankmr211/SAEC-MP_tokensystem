@@ -10,7 +10,7 @@
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="./plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bootstrap 4 -->
@@ -27,6 +27,8 @@
   <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="plugins/summernote/summernote-bs4.min.css">
+  <!-- custom -->
+  <link rel="stylesheet" href="dist/css/custom.css">
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -76,9 +78,10 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">sample user</a>
+            <a href="#" data-toggle="dropdown" class="d-block">sample user</a>
           </div>
         </div>
+
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
@@ -86,21 +89,73 @@
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
             <li class="nav-item">
-              <a href="./index.html" class="nav-link active">
-                <i class="far fa-circle nav-icon"></i>
+              <a href="#" class="nav-link active">
+                <i class="fas fa-chart-bar nav-icon"></i>
                 <p>Dashboard</p>
               </a>
-              <a href="./index.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Dashboard</p>
+            </li>
+            <li class="nav-item">
+              <a href="./tokendepartment.html" class="nav-link">
+                <i class="fas fa-briefcase nav-icon"></i>
+                <p>Department</p>
               </a>
+            </li>
+            <li class="nav-item">
+              <a href="./tokenusermanage.html" class="nav-link">
+                <i class="fas fa-users nav-icon"></i>
+                <p>User Manage</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="far fa-check-circle nav-icon"></i>
+                <p>
+                  Token Manage
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="./tokenschdule.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Token Schdule</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="./tokenconfirm.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Token Confirmation</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="./tokentran.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Token Transaction</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="./tokenlive.html" class="nav-link">
+                <i class="fab fa-hive nav-icon"></i>
+                <p> Token Live</p>
+              </a>
+            </li>
+            <li class="nav-item">
               <a href="./index3.html" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Dashboard v3</p>
               </a>
             </li>
-
           </ul>
+          <div class="sidebar-footer">
+            <a href="#">
+              <i class="fa fa-cog"></i>
+            </a>
+            <a href="#">
+              <i class="fa fa-power-off"></i>
+            </a>
+          </div>
         </nav>
         <!-- /.sidebar-menu -->
       </div>
@@ -130,12 +185,9 @@
               <!-- small box -->
               <div class="small-box bg-info">
                 <div class="inner">
-                  <h3>150</h3>
+                  <h3 id="departid">150</h3>
 
-                  <p>New Orders</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-bag"></i>
+                  <p>DEPARTMENT</p>
                 </div>
                 <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
@@ -145,12 +197,10 @@
               <!-- small box -->
               <div class="small-box bg-success">
                 <div class="inner">
-                  <h3>53<sup style="font-size: 20px">%</sup></h3>
+                  <h3>53
+                  </h3>
 
-                  <p>Bounce Rate</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-stats-bars"></i>
+                  <p>BOOKED TOKEN</p>
                 </div>
                 <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
@@ -162,10 +212,7 @@
                 <div class="inner">
                   <h3>44</h3>
 
-                  <p>User Registrations</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-person-add"></i>
+                  <p>USERS</p>
                 </div>
                 <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
@@ -177,10 +224,7 @@
                 <div class="inner">
                   <h3>65</h3>
 
-                  <p>Unique Visitors</p>
-                </div>
-                <div class="icon">
-                  <i class="ion ion-pie-graph"></i>
+                  <p>SCHDULED TOKEN</p>
                 </div>
                 <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
               </div>
@@ -195,8 +239,8 @@
     </div>
     <!-- /.content-wrapper -->
     <footer class="main-footer">
-      <strong>Copyright &copy; 2022.</strong>
-      All rights reserved.
+      <strong>Designed By Santhoshkumar</strong>
+
     </footer>
 
     <!-- Control Sidebar -->
@@ -241,6 +285,10 @@
   <script src="dist/js/demo.js"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="dist/js/pages/dashboard.js"></script>
+  <!-- axios -->
+  <script src="./util/axios.min.js"></script>
+  <!-- functionalty script -->
+  <script src="./util/dashborad.js"></script>
 </body>
 
 </html>
