@@ -63,7 +63,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="tokenclientbook.html" class="brand-link">
         <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
         <span class="brand-text font-weight-light">TOKEN SYSTEM</span>
@@ -77,7 +77,9 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" data-toggle="dropdown" class="d-block">sample user</a>
+            <a href="#" class="d-block" data-toggle="modal" data-target="#myModal">
+              <h6 id="username"></h6>
+            </a>
           </div>
         </div>
 
@@ -124,18 +126,12 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Dashboard v3</p>
-              </a>
-            </li>
           </ul>
           <div class="sidebar-footer">
-            <a href="#">
+            <a href="#" data-toggle="modal" data-target="#myModal">
               <i class="fa fa-cog"></i>
             </a>
-            <a href="#">
+            <a href="#" onclick="logout()">
               <i class="fa fa-power-off"></i>
             </a>
           </div>
@@ -164,7 +160,7 @@
           <div class="col-12">
             <div class="d-flex flex-row bd-highlight mb-3 col-6">
               <div class="p-2 bd-highlight"> <label>Choose Department</label></div>
-              <select class="form-control" id="get-schedule-token">
+              <select class="form-control" id="get-schedule-token" onchange="getschedule(this)">
                 <option value="">Select</option>
               </select>
             </div>
@@ -184,58 +180,40 @@
                       <thead>
                         <tr>
                           <th style="width: 10px">#</th>
-                          <th>Department</th>
-                          <th>Progress</th>
-                          <th style="width: 40px">Label</th>
+                          <th>Name</th>
+                          <th>Officer Name</th>
+                          <th >Start - End</th>
+                          <th >Total</th>
+                          <th >remaining</th>
+                          <th >Action</th>
                         </tr>
                       </thead>
-                      <tbody>
-                        <tr>
-                          <td>1.</td>
-                          <td>Update software</td>
-                          <td>
-                            <div class="progress progress-xs">
-                              <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                            </div>
-                          </td>
-                          <td><span class="badge bg-danger">55%</span></td>
-                        </tr>
-                        <tr>
-                          <td>2.</td>
-                          <td>Clean database</td>
-                          <td>
-                            <div class="progress progress-xs">
-                              <div class="progress-bar bg-warning" style="width: 70%"></div>
-                            </div>
-                          </td>
-                          <td><span class="badge bg-warning">70%</span></td>
-                        </tr>
-                        <tr>
-                          <td>3.</td>
-                          <td>Cron job running</td>
-                          <td>
-                            <div class="progress progress-xs progress-striped active">
-                              <div class="progress-bar bg-primary" style="width: 30%"></div>
-                            </div>
-                          </td>
-                          <td><span class="badge bg-primary">30%</span></td>
-                        </tr>
-                        <tr>
-                          <td>4.</td>
-                          <td>Fix and squish bugs</td>
-                          <td>
-                            <div class="progress progress-xs progress-striped active">
-                              <div class="progress-bar bg-success" style="width: 90%"></div>
-                            </div>
-                          </td>
-                          <td><span class="badge bg-success">90%</span></td>
-                        </tr>
+                      <tbody id="Schdule-table">
+                        <tr class="no-data">
+                          <td colspan="14" class="text-center">No data available</td>
+                      </tr>
                       </tbody>
                     </table>
                   </div>
                   <!-- /.tab-pane -->
                   <div class="tab-pane" id="status">
-                   ....
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th style="width: 10px">#</th>
+                          <th>Token No</th>
+                          <th>Name</th>
+                          <th>Officer Name</th>
+                          <th >Start - End</th>
+                          <th >Status</th>
+                        </tr>
+                      </thead>
+                      <tbody id="Status-table">
+                        <tr class="no-data">
+                          <td colspan="14" class="text-center">No data available</td>
+                      </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
                 <!-- /.tab-content -->
@@ -244,6 +222,36 @@
             <!-- ./card -->
           </div>
           <!-- /.col -->
+        </div>
+        <div class="container">
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <center>
+                    <img src="dist/img/user2-160x160.jpg" width="140" height="140" border="0" class="img-circle"></a>
+                    <h3 class="media-heading" id="username1"></h3>
+                    <span><strong>Profile: </strong></span>
+                    </center>
+                    <hr>
+                    <p><strong>Email id:</strong><span class="ml-2" id="emailid"></span> </p>
+
+                      <p><strong>Mobile No:</strong> <span class="ml-2" id="mobno"></span>  </p>
+                    <center>
+                    
+                    </center>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          
         </div>
       </section>
       <!-- /.content -->
@@ -289,6 +297,9 @@
   <script src="dist/js/pages/dashboard.js"></script>
   <!-- Select2 -->
   <script src="./plugins/select2/js/select2.full.min.js"></script>
+  <!-- axios -->
+  <script src="./util/axios.min.js"></script>
+  <script src="./util/bookingservice.js"></script>
 </body>
 
 </html>

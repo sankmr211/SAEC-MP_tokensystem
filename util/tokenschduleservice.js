@@ -1,10 +1,36 @@
 let serverurl = 'http://localhost:8003'
 window.addEventListener('DOMContentLoaded', (event) => {
+    
+    var storedNames = JSON.parse(localStorage.getItem("adminuser"));
     fetchuser()
     fetchdepartment()
+    
+    if (localStorage.getItem("adminuser") == null) {
+        window.location.replace("../tokenlogin.html");
+    }
+    if (storedNames.user_type == "officer") {
+        window.location.replace("../tokenoffindex.html");
+    } else if (storedNames.user_type == "client") {
+        window.location.replace("../tokenclientindex.html");
+    }
+
+
+    document.getElementById("username").innerText = storedNames.name
+    document.getElementById("username1").innerText = storedNames.name + "(" + storedNames.user_type + ")"
+    document.getElementById("emailid").innerText = storedNames.email_id
+    document.getElementById("mobno").innerText = storedNames.mobile_no
     fetchschdule()
 
+
+    
+
+
 });
+
+function logout() {
+    localStorage.removeItem("adminuser");
+    window.location.replace("../tokenlogin.html");
+}
 
 //fetch department
 let departmentdata = []
@@ -105,6 +131,15 @@ addschduleform.addEventListener('submit', (e) => {
     axios.post(url, userdata)
         .then((res) => {
             console.log(res.data);
+            
+            let tokenurl=`${serverurl}/token/live/create`
+            axios.post(tokenurl,{
+                "schdule_uid":res.data.create.schdule_uid
+            }).then((res)=>{
+                console.log(res.data);
+            }).catch((err)=>{
+                console.log(err);
+            })
             fetchschdule()
         })
         .catch((err) => {

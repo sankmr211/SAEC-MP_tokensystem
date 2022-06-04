@@ -1,8 +1,33 @@
 let serverurl = 'http://localhost:8003'
 window.addEventListener('DOMContentLoaded', (event) => {
+        
+    var storedNames = JSON.parse(localStorage.getItem("adminuser"));
+    if (localStorage.getItem("adminuser") == null) {
+        window.location.replace("../tokenlogin.html");
+    }
+     if (storedNames.user_type == "officer") {
+        window.location.replace("../tokenoffindex.html");
+    } else if (storedNames.user_type == "client") {
+        window.location.replace("../tokenclientindex.html");
+    }
+
+
+    document.getElementById("username").innerText = storedNames.name
+    document.getElementById("username1").innerText = storedNames.name + "(" + storedNames.user_type + ")"
+    document.getElementById("emailid").innerText = storedNames.email_id
+    document.getElementById("mobno").innerText = storedNames.mobile_no
     fetchdepartment()
+
+
+
+
 });
 
+
+function logout() {
+    localStorage.removeItem("adminuser");
+    window.location.replace("../tokenlogin.html");
+}
 
 //fetch department
 function fetchdepartment() {
@@ -66,15 +91,15 @@ tabledata.addEventListener('click', (e) => {
     let targetelm = e.target;
     if (targetelm.classList.contains('dpartupdate')) {
         let departupdt = targetelm.parentElement.parentElement.parentElement.firstElementChild.innerHTML.split('_')
-        let url = `${serverurl}/token/depart/fetch?_id=`+departupdt[0]
+        let url = `${serverurl}/token/depart/fetch?_id=` + departupdt[0]
         axios.get(url)
-        .then((res) => {
-            data=res.data.data[0]
-            showupdatemodel(data);
-        })
-        .catch((err) => {
-            console.log(res);
-        })
+            .then((res) => {
+                data = res.data.data[0]
+                showupdatemodel(data);
+            })
+            .catch((err) => {
+                console.log(res);
+            })
     }
     if (targetelm.classList.contains('dpartdelete')) {
         let departdel = targetelm.parentElement.parentElement.parentElement.firstElementChild.innerHTML.split('_')
@@ -90,17 +115,17 @@ tabledata.addEventListener('click', (e) => {
     }
 })
 
-function showupdatemodel(data){
+function showupdatemodel(data) {
     document.querySelector('#update-department-name').value = data.name
-    document.querySelector('#update-department-id').value =data.department_uid
+    document.querySelector('#update-department-id').value = data.department_uid
     document.querySelector('#update-department-description').value = data.description
     document.querySelector('#update-department-status').value = data.status
     $('#update-depart').modal('show')
 }
 
 
-let updateform=document.querySelector('#update-department-form')
-updateform.addEventListener('submit',(e)=>{
+let updateform = document.querySelector('#update-department-form')
+updateform.addEventListener('submit', (e) => {
     e.preventDefault();
     $('#update-depart').modal('hide')
     let departmentdata = {
@@ -108,7 +133,7 @@ updateform.addEventListener('submit',(e)=>{
         description: document.querySelector('#update-department-description').value,
         status: document.querySelector('#update-department-status').value,
     }
-    let url = `${serverurl}/token/depart/update/`+document.querySelector('#update-department-id').value
+    let url = `${serverurl}/token/depart/update/` + document.querySelector('#update-department-id').value
     axios.put(url, departmentdata)
         .then((res) => {
             console.log(res.data);

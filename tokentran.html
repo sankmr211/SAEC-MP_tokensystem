@@ -49,7 +49,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="index.html" class="brand-link">
         <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
         <span class="brand-text font-weight-light">TOKEN SYSTEM</span>
@@ -63,7 +63,9 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" data-toggle="dropdown" class="d-block">sample user</a>
+            <a href="#" class="d-block" data-toggle="modal" data-target="#myModal">
+              <h6 id="username"></h6>
+            </a>
           </div>
         </div>
 
@@ -126,18 +128,12 @@
                 <p> Token Live</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Dashboard v3</p>
-              </a>
-            </li>
           </ul>
           <div class="sidebar-footer">
-            <a href="#">
+            <a href="#" data-toggle="modal" data-target="#myModal">
               <i class="fa fa-cog"></i>
             </a>
-            <a href="#">
+            <a href="#" onclick="logout()">
               <i class="fa fa-power-off"></i>
             </a>
           </div>
@@ -162,91 +158,31 @@
 
       <!-- Main content -->
       <section class="content">
-
-
-
-        <!-- Modal -->
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header bg-dark text-white">
-                <h5 class="modal-title" id="exampleModalLabel">Add Department</h5>
-                <button type="button" class="close text-light bg-dark" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <form>
-                <div class="modal-body">
-
-                  <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Name">
-                  </div>
-                  <div class="form-group">
-                    <label for="description">Description</label>
-                    <input type="text" class="form-control" id="description" placeholder="Description">
-                  </div>
-                  <div class="form-group">
-                    <label>Status</label>
-                    <select class="form-control">
-                      <option selected>Select</option>
-                      <option>Active</option>
-                      <option>Inactive</option>
-                    </select>
-                  </div>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary">Submit</button>
-                </div>
-              </form>
-            </div>
-          </div>
-        </div>
-
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
               <div class="card">
-                <div class="card-header">
-                  <!-- Button trigger modal -->
-                  <a href="#" data-toggle="modal" data-target="#exampleModal"><i
-                      class="fa fa-plus-circle fa-3x text-dark" aria-hidden="true"></i></a>
-
-                </div>
-                <!-- /.card-header -->
                 <div class="card-body">
                   <table id="example2" class="table table-bordered table-hover">
                     <thead>
                       <tr>
-                        <th>Name</th>
-                        <th>Description</th>
+                        <th>#</th>
+                        <th>Token No</th>
+                        <th>Name</th> 
+                        <th>User Name</th>
+                        <th>Officer Name</th>
+                        <th>Schdule start-end</th>
+                        <th>Time</th>
                         <th>Status</th>
-                        <th>Action</th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <td>IT support</td>
-                        <td>IT support in 2nd floor</td>
-                        <td>Active</td>
-                        <td><a href="#"><i class="far fa-edit"></i></a> <a href="#"><i
-                              class="ml-2 far fa-trash-alt text-danger"></i></a></td>
-
-                      </tr>
-                      <tr>
-                        <td>Sales</td>
-                        <td>Sales department in 3rd floor</td>
-                        <td>In Active</td>
-                        <td><a href="#"><i class="far fa-edit"></i></a> <a href="#"><i
-                              class="ml-2 far fa-trash-alt text-danger"></i></a></td>
-
-                      </tr>
+                    <tbody id="token-transaction">
+                      <tr class="no-data">
+                        <td colspan="14" class="text-center">No data available</td>
+                    </tr>
                     </tbody>
                   </table>
                 </div>
-                <!-- /.card-body -->
               </div>
               <!-- /.card -->
               <!-- /.card -->
@@ -255,7 +191,37 @@
           </div>
           <!-- /.row -->
         </div>
-        <!-- /.container-fluid -->
+
+        <div class="container">
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <center>
+                    <img src="dist/img/user2-160x160.jpg" width="140" height="140" border="0" class="img-circle"></a>
+                    <h3 class="media-heading" id="username1"></h3>
+                    <span><strong>Profile: </strong></span>
+                    </center>
+                    <hr>
+                    <p><strong>Email id:</strong><span class="ml-2" id="emailid"></span> </p>
+
+                      <p><strong>Mobile No:</strong> <span class="ml-2" id="mobno"></span>  </p>
+                    <center>
+                    
+                    </center>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          
+        </div>
       </section>
       <!-- /.content -->
     </div>
@@ -287,24 +253,16 @@
   <script src="./plugins/datatables-buttons/js/buttons.html5.min.js"></script>
   <script src="./plugins/datatables-buttons/js/buttons.print.min.js"></script>
   <script src="./plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+  <!-- moment -->
+  <script src="plugins/moment/moment.min.js"></script>
   <!-- AdminLTE App -->
   <script src="./dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   <script src="./dist/js/demo.js"></script>
-  <!-- Page specific script -->
-  <script>
-    $(function () {
-      $('#example2').DataTable({
-        "paging": true,
-        "lengthChange": true,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": false,
-        "responsive": true,
-      });
-    });
-  </script>
+    <!-- axios -->
+    <script src="./util/axios.min.js"></script>
+    <script src="./util/tokenadmintransation.js"></script>
+
 </body>
 
 </html>

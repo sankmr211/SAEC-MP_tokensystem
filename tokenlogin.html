@@ -24,11 +24,11 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg toastrDefaultSuccess">Sign in to start your session</p>
+      <p class="login-box-msg">Sign in to start your session</p>
 
-      <form >
+      <form id="login-form-data" >
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input required type="email" class="form-control" placeholder="Email" id="userid">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -36,7 +36,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input required type="password" class="form-control" placeholder="Password" id="userpass">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -46,7 +46,7 @@
         <div class="row">
           <div class="col-8">
             <div class="icheck-primary">
-              <input type="checkbox" id="remember">
+              <input required type="checkbox" id="remember">
               <label for="remember">
                 Remember Me
               </label>
@@ -64,9 +64,9 @@
 
 
       <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a href="tokenregister.html" class="text-center">Register a new membership</a>
       </p>
-      <p class="toastrDefaultError"><b>Note:</b> The client can only register</p>
+      <p ><b>Note:</b> The client can only register</p>
     </div>
     <!-- /.login-card-body -->
   </div>
@@ -81,13 +81,9 @@
 <script src="./dist/js/adminlte.min.js"></script>
 <!-- Toastr -->
 <script src="./plugins/toastr/toastr.min.js"></script>
-<script>
-  $('.toastrDefaultSuccess').click(function() {
-      toastr.success('User login successfully ')
-    });
-    $('.toastrDefaultError').click(function() {
-      toastr.error('Username and password not register.')
-    });
-</script>
+<!-- axios -->
+<script src="./util/axios.min.js"></script>
+<script src="./util/login.js"></script>
+
 </body>
 </html>

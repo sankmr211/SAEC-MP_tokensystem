@@ -60,7 +60,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="tokenclientlive.html" class="brand-link">
         <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
           style="opacity: .8">
         <span class="brand-text font-weight-light">TOKEN SYSTEM</span>
@@ -74,7 +74,9 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" data-toggle="dropdown" class="d-block">sample user</a>
+            <a href="#" class="d-block" data-toggle="modal" data-target="#myModal">
+              <h6 id="username"></h6>
+            </a>
           </div>
         </div>
 
@@ -121,18 +123,13 @@
                 </p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Dashboard v3</p>
-              </a>
-            </li>
+
           </ul>
           <div class="sidebar-footer">
-            <a href="#">
+            <a href="#" data-toggle="modal" data-target="#myModal">
               <i class="fa fa-cog"></i>
             </a>
-            <a href="#">
+            <a href="#" onclick="logout()">
               <i class="fa fa-power-off"></i>
             </a>
           </div>
@@ -158,17 +155,18 @@
 
       <!-- Main content -->
       <section class="content">
-        <div class="d-flex flex-row bd-highlight mb-3 col-6">
-          <div class="p-2 bd-highlight"> <label>Choose Department</label></div>
-          <select class="form-control">
-            <option>option 1</option>
-            <option>option 2</option>
-            <option>option 3</option>
-            <option>option 4</option>
-            <option>option 5</option>
-          </select>
+        <div class="m-3 d-flex justify-content-between">
+          <div class="p-2 bd-highlight col-3">
+            <div class="p-2 bd-highlight"> <label>Choose Schedule</label></div>
+            <select class="form-control" id="get-schdule" onchange="getschdle(this)">
+              <option value="">Select</option>
+            </select>
+          </div>
+          <div class="m-3 p-2 bd-highlight" id="schedulestatus">
+            <span class="badge badge-success">Online</span>
+            <span class="badge badge-danger" hidden>Offline</span>
+          </div>
         </div>
-
 
         <div class="container">
           <div class="row justify-content-md-center ">
@@ -176,13 +174,13 @@
               <div class="info-box bg-info">
                 <div class="info-box-content">
                   <span class="info-box-text text-center font-weight-bold">token live</span>
-                  <span class="info-box-number text-center">1</span>
-  
+                  <span class="info-box-number text-center"></span>
+
                   <div class="progress">
                     <div class="progress-bar" style="width: 100%"></div>
                   </div>
                   <span class="progress-description">
-                    2 out of 20
+                    
                   </span>
                 </div>
                 <!-- /.info-box-content -->
@@ -192,63 +190,54 @@
           </div>
           <div class="row">
             <div class="col ">
-                           <!-- /.card-header -->
-                           <div class="card-body p-0">
-                            <table class="table table-sm">
-                              <thead>
-                                <tr>
-                                  <th style="width: 10px">#</th>
-                                  <th>Task</th>
-                                  <th>Progress</th>
-                                  <th style="width: 40px">Label</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>1.</td>
-                                  <td>Update software</td>
-                                  <td>
-                                    <div class="progress progress-xs">
-                                      <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                    </div>
-                                  </td>
-                                  <td><span class="badge bg-danger">55%</span></td>
-                                </tr>
-                                <tr>
-                                  <td>2.</td>
-                                  <td>Clean database</td>
-                                  <td>
-                                    <div class="progress progress-xs">
-                                      <div class="progress-bar bg-warning" style="width: 70%"></div>
-                                    </div>
-                                  </td>
-                                  <td><span class="badge bg-warning">70%</span></td>
-                                </tr>
-                                <tr>
-                                  <td>3.</td>
-                                  <td>Cron job running</td>
-                                  <td>
-                                    <div class="progress progress-xs progress-striped active">
-                                      <div class="progress-bar bg-primary" style="width: 30%"></div>
-                                    </div>
-                                  </td>
-                                  <td><span class="badge bg-primary">30%</span></td>
-                                </tr>
-                                <tr>
-                                  <td>4.</td>
-                                  <td>Fix and squish bugs</td>
-                                  <td>
-                                    <div class="progress progress-xs progress-striped active">
-                                      <div class="progress-bar bg-success" style="width: 90%"></div>
-                                    </div>
-                                  </td>
-                                  <td><span class="badge bg-success">90%</span></td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </div>
+              <!-- /.card-header -->
+              <div class="card-body p-0">
+                <table class="table table-sm">
+                  <thead>
+                    <tr>
+                      <th>Token No</th>
+                      <th>User Name</th>
+                      <th>Officer Name</th>
+                      <th>Department</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
+        </div>
+        <div class="container">
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <center>
+                    <img src="dist/img/user2-160x160.jpg" width="140" height="140" border="0" class="img-circle"></a>
+                    <h3 class="media-heading" id="username1"></h3>
+                    <span><strong>Profile: </strong></span>
+                    </center>
+                    <hr>
+                    <p><strong>Email id:</strong><span class="ml-2" id="emailid"></span> </p>
+
+                      <p><strong>Mobile No:</strong> <span class="ml-2" id="mobno"></span>  </p>
+                    <center>
+                    
+                    </center>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          
         </div>
       </section>
       <!-- /.content -->
@@ -297,6 +286,9 @@
   <script src="dist/js/demo.js"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="dist/js/pages/dashboard.js"></script>
+  <!-- axios -->
+  <script src="./util/axios.min.js"></script>
+  <script src="./util/clientlive.js"></script>
 </body>
 
 </html>

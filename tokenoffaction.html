@@ -7,8 +7,8 @@
   <title>TOKEN SYS | Officer Portal</title>
 
   <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="./plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
@@ -74,7 +74,9 @@
             <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" data-toggle="dropdown" class="d-block">sample user</a>
+            <a href="#" class="d-block" data-toggle="modal" data-target="#myModal">
+              <h6 id="username"></h6>
+            </a>
           </div>
         </div>
 
@@ -84,55 +86,49 @@
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-               <li class="nav-item">
-                <a href="./tokenoffindex.html" class="nav-link">
-                  <i class="fas fa-chart-bar nav-icon"></i>
-                  <p>Dashboard</p>
-                </a>
-              </li>
-              <li class="nav-item menu-open">
-                <a href="#" class="nav-link">
-                  <i class="far fa-check-circle nav-icon"></i>
-                  <p>
-                    Token Manage
-                    <i class="right fas fa-angle-left"></i>
-                  </p>
-                </a>
-                <ul class="nav nav-treeview">
-                  <li class="nav-item">
-                    <a href="./tokenoffaction.html" class="nav-link active">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Active / Current Token</p>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a href="./tokenofftran.html" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Token Transaction</p>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-item">
-                <a href="./tokenofflive.html" class="nav-link ">
-                  <i class="fab fa-hive nav-icon"></i>
-                  <p>
-                    Token Live
-                  </p>
-                </a>
-              </li>
             <li class="nav-item">
-              <a href="./index3.html" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Dashboard v3</p>
+              <a href="./tokenoffindex.html" class="nav-link">
+                <i class="fas fa-chart-bar nav-icon"></i>
+                <p>Dashboard</p>
+              </a>
+            </li>
+            <li class="nav-item menu-open">
+              <a href="#" class="nav-link">
+                <i class="far fa-check-circle nav-icon"></i>
+                <p>
+                  Token Manage
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="./tokenoffaction.html" class="nav-link active">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Active / Current Token</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="./tokenofftran.html" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Token Transaction</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="./tokenofflive.html" class="nav-link ">
+                <i class="fab fa-hive nav-icon"></i>
+                <p>
+                  Token Live
+                </p>
               </a>
             </li>
           </ul>
           <div class="sidebar-footer">
-            <a href="#">
+            <a href="#" data-toggle="modal" data-target="#myModal">
               <i class="fa fa-cog"></i>
             </a>
-            <a href="#">
+            <a href="#" onclick="logout()">
               <i class="fa fa-power-off"></i>
             </a>
           </div>
@@ -150,15 +146,94 @@
           <div class="row mb-2">
             <div class="col-sm-6">
               <h1 class="m-0">Active / Current Token</h1>
-            </div><!-- /.col -->
+            </div>
+
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
       </div>
-      <!-- /.content-header -->
 
+
+      <div class="m-3 d-flex justify-content-between">
+        <div class="p-2 bd-highlight">
+          <div class="p-2 bd-highlight"> <label>Choose Schedule</label></div>
+          <select class="form-control" id="get-officer-schdule" onchange="fetchschdule(this)">
+            <option value="">Select</option>
+          </select>
+        </div>
+        <div class="m-3 p-2 bd-highlight">
+          <div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success pl-5 ">
+            <input type="checkbox" class="custom-control-input" id="userstatus"  disabled>
+            <label class="custom-control-label" for="userstatus">online/offline</label>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- /.content-header -->
       <!-- Main content -->
       <section class="content">
-        sss
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+                <div class="card-body">
+                  <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th>#</th>
+                        <th>Token No</th>
+                        <th>Name</th>
+                        <th>User Name</th>
+                        <th>Mobile No</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="action-token-table">
+                      <tr class="no-data">
+                        <td colspan="14" class="text-center">No data available</td>
+                    </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <!-- /.card -->
+              <!-- /.card -->
+            </div>
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <div class="container">
+          <!-- Modal -->
+          <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                  <center>
+                    <img src="dist/img/user2-160x160.jpg" width="140" height="140" border="0" class="img-circle"></a>
+                    <h3 class="media-heading" id="username1"></h3>
+                    <span><strong>Profile: </strong></span>
+                    </center>
+                    <hr>
+                    <p><strong>Email id:</strong><span class="ml-2" id="emailid"></span> </p>
+
+                      <p><strong>Mobile No:</strong> <span class="ml-2" id="mobno"></span>  </p>
+                    <center>
+                    
+                    </center>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+          
+        </div>
       </section>
       <!-- /.content -->
     </div>
@@ -206,6 +281,9 @@
   <script src="dist/js/demo.js"></script>
   <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
   <script src="dist/js/pages/dashboard.js"></script>
+<!-- axios -->
+<script src="./util/axios.min.js"></script>
+<script src="./util/tokenoffaction.js"></script>
 </body>
 
 </html>

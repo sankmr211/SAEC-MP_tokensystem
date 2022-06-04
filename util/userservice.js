@@ -1,8 +1,32 @@
 let serverurl = 'http://localhost:8003'
 window.addEventListener('DOMContentLoaded', (event) => {
+    var storedNames = JSON.parse(localStorage.getItem("adminuser"));
+    if (localStorage.getItem("adminuser") == null) {
+        window.location.replace("../tokenlogin.html");
+    }
+    if (storedNames.user_type == "officer") {
+        window.location.replace("../tokenoffindex.html");
+    } else if (storedNames.user_type == "client") {
+        window.location.replace("../tokenclientindex.html");
+    }
+
+    document.getElementById("username").innerText = storedNames.name
+    document.getElementById("username1").innerText = storedNames.name + "(" + storedNames.user_type + ")"
+    document.getElementById("emailid").innerText = storedNames.email_id
+    document.getElementById("mobno").innerText = storedNames.mobile_no
+
+
+   
     fetchdepartment()
     fetchusers()
+    
 });
+
+function logout() {
+    localStorage.removeItem("adminuser");
+    window.location.replace("../tokenlogin.html");
+}
+
 
 function GetSelectedTextValue(opt) {
     var selectedValue = opt.value;
