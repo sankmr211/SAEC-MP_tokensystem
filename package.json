@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server/index.js",
   "scripts": {
-    "start": "nodemon server",
+    "start": "node server",
     "test": "lab -a @hapi/code -p",
     "lint": "eslint .",
     "lintfix": "eslint . --fix",
@@ -21,6 +21,7 @@
     "@hapi/joi": "17.x.x",
     "axios": "^0.21.1",
     "csvtojson": "^2.0.10",
+    "dsi-mongoose-auto-increment": "^0.0.0",
     "ejs": "^3.1.7",
     "ejs-lint": "^1.2.1",
     "hapi-auth-jwt2": "^10.1.0",
@@ -30,8 +31,10 @@
     "jwks-rsa": "^1.8.1",
     "jwt-decode": "^2.2.0",
     "moment": "^2.29.3",
+    "mongodb-autoincrement": "^1.0.1",
     "mongoose": "^4.1.12",
     "mongoose-auto-increment": "^5.0.1",
+    "mongoose-sequence": "^5.3.1",
     "nodemailer": "^6.7.3",
     "nodemailer-smtp-transport": "^2.7.4",
     "objection": "^2.2.0",
@@ -40,6 +43,7 @@
     "redis": "^3.0.2",
     "schmervice": "^1.5.0",
     "schwifty": "^5.2.1",
+    "simple-mongoose-autoincrement": "^1.2.1",
     "uuid": "^8.2.0"
   },
   "devDependencies": {
